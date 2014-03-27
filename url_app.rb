@@ -3,6 +3,7 @@ require 'sinatra/base'
 class UrlApp < Sinatra::Application
 
   URL_DATA = []
+  DOMAIN = ""
 
   get '/' do
     erb :homepage, :locals => {:urls => URL_DATA}
@@ -12,13 +13,13 @@ class UrlApp < Sinatra::Application
     full_url = params[:full_url]
     URL_DATA << full_url
     index = URL_DATA.find_index(full_url) + 1
-
+    DOMAIN = request.url
     redirect "/#{index}"
   end
 
   get '/:index' do
     old_url = URL_DATA[params[:index].to_i - 1]
     index = params[:index]
-    erb :new_link_page, :locals => {:old_url => old_url, :index => index}
+    erb :new_link_page, :locals => {:old_url => old_url, :index => index, :domain => DOMAIN}
   end
 end
