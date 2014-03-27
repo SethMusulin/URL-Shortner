@@ -9,5 +9,7 @@ feature "URL Shortener" do
     fill_in "Enter URL", :with => "www.google.com"
     click_on "Shorten"
 
+    expect(page).to have_content "www.google.com"
+    expect(page).to have_content "/1"
   end
 end
