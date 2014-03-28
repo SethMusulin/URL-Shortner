@@ -4,7 +4,7 @@ https://www.pivotaltracker.com/n/projects/1047312
 
 Heroku staging URL
 ==================
-http://shielded-everglades-2353.herokuapp.com
+http://shielded-everglades-2353.herokuapp.com/
 
 Heroku production URL
 =====================
