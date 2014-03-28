@@ -14,12 +14,16 @@ class UrlApp < Sinatra::Application
     URL_DATA << full_url
     index = URL_DATA.find_index(full_url) + 1
     DOMAIN = request.url
-    redirect "/#{index}"
+    redirect "/#{index}?stats=true"
   end
 
   get '/:index' do
     old_url = URL_DATA[params[:index].to_i - 1]
-    index = params[:index]
-    erb :new_link_page, :locals => {:old_url => old_url, :index => index, :domain => DOMAIN}
+    if params[:stats] == "true"
+      index = params[:index]
+      erb :new_link_page, :locals => {:old_url => old_url, :index => index, :domain => DOMAIN}
+    else
+      redirect to old_url
+    end
   end
 end

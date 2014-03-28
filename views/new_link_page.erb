@@ -1,10 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+  <link href="/css/default.css" rel="stylesheet" type="text/css">
   <title>Your URL Shortened</title>
 </head>
 <body>
-<p>Original URL: <%= old_url %></p>
-<p>"Shortened" URL: <a href="<%= domain %><%= index %>"><%= domain %><%= index %></a></p>
+<table>
+  <tr>
+    <td id="label">Original URL</td>
+    <td><%= old_url %></td>
+  </tr>
+  <tr>
+    <td id="label">"Shortened" URL</td>
+    <td><a id="short_link" href="<%= domain %><%= index %>"><%= domain %><%= index %></a></td>
+  </tr>
+</table>
 </body>
 </html>
