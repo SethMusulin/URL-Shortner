@@ -17,6 +17,7 @@ input[type="text"] {
     padding-left: 10px;
     border-color: black;
     box-shadow: 1px 1px 2px black;
+    font-family: "LUCIDA CONSOLE", Monaco
 }
 
 input[type="submit"] {
@@ -29,6 +30,8 @@ input[type="submit"] {
     padding: 10px;
     border-color: black;
     box-shadow: 3px 3px 2px black;
+    font-size: 13px;
+    font-family: "LUCIDA CONSOLE", Monaco;
 }
 
 table {
