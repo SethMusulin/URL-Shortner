@@ -5,7 +5,7 @@ require_relative '../url_app'
 Capybara.app = UrlApp
 
 feature "URL Shortener" do
-  scenario "user goes to homepage" do
+  scenario "user shortenes a URL" do
     visit "/"
     fill_in "Enter the URL you would like to &quot shorten &quot", :with => "http://www.google.com/"
     click_on "Shorten"

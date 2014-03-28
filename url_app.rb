@@ -11,6 +11,9 @@ class UrlApp < Sinatra::Application
 
   post '/' do
     full_url = params[:full_url]
+    if !full_url.include? "http://"
+      full_url.insert(0, "http://")
+    end
     URL_DATA << full_url
     index = URL_DATA.find_index(full_url) + 1
     DOMAIN = request.url
