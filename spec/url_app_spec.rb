@@ -12,7 +12,7 @@ feature "URL Shortener" do
     click_on "Shorten"
 
     expect(page).to have_content "google.com"
-    expect(page).to have_content "#{domain}/"/\d/
+    expect(page).to have_content "#{domain}"
     click_on "short_link"
     expect(current_url).to have_content "google.com"
   end
