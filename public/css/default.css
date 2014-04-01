@@ -5,9 +5,16 @@ body {
 }
 
 form {
-    margin-top: 22%;
+    margin-top: 18%;
     display: inline-block;
     text-align: center;
+}
+
+.error {
+    margin: 20px auto;
+    width: 30em;
+    text-align: center;
+    color: #ff0000;
 }
 
 input[type="text"] {

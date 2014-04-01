@@ -1,3 +1,4 @@
+require "spec_helper"
 require 'capybara/rspec'
 require_relative '../url_app'
 
@@ -8,7 +9,7 @@ feature "URL Shortener" do
   scenario "user shortenes a URL" do
     visit "/"
     domain = current_url
-    fill_in "Enter the URL you would like to &quot shorten &quot", :with => "google.com"
+    fill_in "Enter the URL you would like to &quot shorten &quot", :with =>"google.com"
     click_on "Shorten"
 
     expect(page).to have_content "google.com"
@@ -16,4 +17,12 @@ feature "URL Shortener" do
     click_on "short_link"
     expect(current_url).to have_content "google.com"
   end
+
+  scenario "User tries to shorten a non-url" do
+    visit "/"
+    fill_in "Enter the URL you would like to &quot shorten &quot", :with =>"blah"
+    click_on "Shorten"
+    expect(page).to have_content "The text you entered is not a valid URL"
+  end
+
 end
