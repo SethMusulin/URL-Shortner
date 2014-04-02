@@ -24,4 +24,10 @@ feature "URL Shortener" do
     expect(page).to have_content "The text you entered is not a valid URL"
   end
 
+  scenario "User enters nothing into the url field" do
+    visit "/"
+    fill_in "Enter the URL you would like to &quot shorten &quot", :with => ""
+    click_on "Shorten"
+    expect(page).to have_content "URL cannot be blank"
+  end
 end

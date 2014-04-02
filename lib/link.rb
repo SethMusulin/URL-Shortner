@@ -16,6 +16,10 @@ class Link
       false
     end
   end
-end
 
+  def is_url_empty?
+    @old_url.strip.empty?
+  end
+
+end
 
