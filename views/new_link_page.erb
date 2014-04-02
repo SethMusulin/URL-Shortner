@@ -8,11 +8,11 @@
 <table>
   <tr>
     <td id="label">Original URL</td>
-    <td><%= old_url %></td>
+    <td><%= url_to_redirect_to %></td>
   </tr>
   <tr>
     <td id="label">"Shortened" URL</td>
-    <td><a id="short_link" href="<%= domain %><%= index %>"><%= domain %><%= index %></a></td>
+    <td><a id="short_link" href="<%= url_to_redirect_to %>"><%= domain %><%= id %></a></td>
   </tr>
 </table>
 </body>

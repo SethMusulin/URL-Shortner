@@ -11,9 +11,9 @@ describe LinkRepo do
     repo = LinkRepo.new
     link = Link.new("http://google.com")
     repo.add(link.old_url)
-    expect(repo.links).to eq [{ url_to_redirect_to: "http://google.com", id: 1}]
+    expect(repo.links).to eq [{url_to_redirect_to: "http://google.com", id: 1, :stats => true}]
     link = Link.new("http://cnn.com")
     repo.add(link.old_url)
-    expect(repo.links.last).to eq ({ url_to_redirect_to: "http://cnn.com", id: 2})
+    expect(repo.links.last).to eq ({url_to_redirect_to: "http://cnn.com", id: 2, :stats => true})
   end
 end

@@ -1,40 +1,45 @@
 require 'sinatra/base'
 require 'uri'
+require './lib/link'
+require './lib/link_repo'
+
 
 class UrlApp < Sinatra::Application
 
   URL_DATA = []
   DOMAIN = ""
-  ERROR_MESSAGE = ""
+  ERROR_MESSAGE = {}
+  LINK_REPO = LinkRepo.new
 
   get '/' do
-    erb :homepage, :locals => {:urls => URL_DATA, :error => ERROR_MESSAGE}
+    DOMAIN = request.url
+    if ERROR_MESSAGE[:status] == true
+      ERROR_MESSAGE[:status] = false
+      erb :homepage, :locals => {:error => ERROR_MESSAGE[:error_message]}
+    else
+      ERROR_MESSAGE[:error_message] = ""
+      erb :homepage, :locals => {:error => ERROR_MESSAGE[:error_message]}
+    end
   end
 
   post '/' do
-    full_url = params[:full_url]
-    full_url.strip!
-    if !full_url.include?("http://") && !full_url.include?("https://")
-      full_url.insert(0, "http://")
-    end
-    if full_url =~ /^#{URI::regexp}$/ && full_url =~ /[a-zA-Z\d]['.'][a-zA-Z][a-zA-Z]/
-      URL_DATA << full_url
-      index = URL_DATA.find_index(full_url) + 1
-      DOMAIN = request.url
-      redirect "/#{index}?stats=true"
+    new_link = Link.new(params[:full_url])
+    if new_link.is_url?
+      LINK_REPO.add(new_link.old_url)
+      stats = LINK_REPO.links.last[:stats]
+      redirect "/#{LINK_REPO.links.last[:id]}?stats=#{stats}"
     else
-      ERROR_MESSAGE = "The text you entered is not a valid URL"
+      ERROR_MESSAGE = {:error_message => "The text you entered is not a valid URL", status: true}
       redirect '/'
     end
   end
 
-  get '/:index' do
-    old_url = URL_DATA[params[:index].to_i - 1]
-    if params[:stats] == "true"
-      index = params[:index]
-      erb :new_link_page, :locals => {:old_url => old_url, :index => index, :domain => DOMAIN}
+  get '/:id' do
+    link = LINK_REPO.links[(params[:id].to_i) - 1]
+    if params[:stats]
+      erb :new_link_page, :locals => {:url_to_redirect_to => link[:url_to_redirect_to], :id => params[:id], :domain => DOMAIN}
     else
-      redirect to old_url
+      redirect link[:url_to_redirect_to]
     end
   end
 end
