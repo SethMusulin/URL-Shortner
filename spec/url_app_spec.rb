@@ -30,4 +30,13 @@ feature "URL Shortener" do
     click_on "Shorten"
     expect(page).to have_content "URL cannot be blank"
   end
+
+  scenario "User can return to homepage" do
+  visit "/"
+  fill_in "Enter the URL you would like to &quot shorten &quot", :with => "http://google.com"
+  click_on "Shorten"
+  click_on "homepage"
+  expect(page).to have_title "URL Shortener"
+  end
+
 end
